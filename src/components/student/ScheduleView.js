@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SERVER_URL } from "../../Constants";
-import { confirmAlert } from "react-confirm-alert";
-import Button from "@mui/material/Button";
+import { SERVER_URL } from '../../Constants';
 
 // student can view schedule of sections 
 // use the URL /enrollment?studentId=3&year= &semester=
@@ -30,6 +28,10 @@ const ScheduleView = (props) => {
         }
     };
 
+    useEffect(() => {
+        fetchSchedule();
+    }, []);
+
     const dropCourse = async (enrollmentId) => {
         try {
             const response = await fetch(`${SERVER_URL}/enrollment/${enrollmentId}`, {
@@ -50,29 +52,9 @@ const ScheduleView = (props) => {
         }
     };
 
-    useEffect(() => {
-        fetchSchedule();
-    }, []);
-
-    const onDrop = (e, enrollmentId) => {
-        confirmAlert({
-            title: 'Confirm to drop',
-            message: 'Do you really want to drop this course?',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => dropCourse(enrollmentId)
-                },
-                {
-                    label: 'No',
-                }
-            ]
-        });
-    };
-
     return (
         <>
-            <h3>Class Schedule</h3>
+            <h3>Your Schedule</h3>
             <h4>{message}</h4>
             <table className="Center">
                 <thead>
@@ -83,19 +65,21 @@ const ScheduleView = (props) => {
                         <th>SectionId</th>
                         <th>Title</th>
                         <th>Credits</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {schedule.map((enrollment) => (
-                        <tr key={enrollment.id}>
-                            <td>{enrollment.year}</td>
-                            <td>{enrollment.semester}</td>
-                            <td>{enrollment.courseId}</td>
-                            <td>{enrollment.sectionId}</td>
-                            <td>{enrollment.title}</td>
-                            <td>{enrollment.credits}</td>
-                            <td><Button onClick={(e) => onDrop(e, enrollment.id)}>Drop</Button></td>
+                    {schedule.map((s) => (
+                        <tr key={s.enrollmentId}>
+                            <td>{s.year}</td>
+                            <td>{s.semester}</td>
+                            <td>{s.courseId}</td>
+                            <td>{s.sectionId}</td>
+                            <td>{s.title}</td>
+                            <td>{s.credits}</td>
+                            <td>
+                                <button onClick={() => dropCourse(s.enrollmentId)}>Drop</button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

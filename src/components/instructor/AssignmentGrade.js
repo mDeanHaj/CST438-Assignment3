@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SERVER_URL } from "../../Constants";
-import Button from "@mui/material/Button";
+import { SERVER_URL } from '../../Constants';
 
 // instructor enters students' grades for an assignment
 // fetch the grades using the URL /assignment/{id}/grades
@@ -10,13 +9,13 @@ import Button from "@mui/material/Button";
 //  <input type="text" name="score" value={g.score} onChange={onChange} />
 
 const AssignmentGrade = (props) => {
-    const { assignmentId } = props;
     const [grades, setGrades] = useState([]);
     const [message, setMessage] = useState('');
+    const [assignmentId, setAssignmentId] = useState(props.assignmentId);
 
     const fetchGrades = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignment/${assignmentId}/grades`);
+            const response = await fetch(`${SERVER_URL}/assignment/${id}/grades`);
             if (response.ok) {
                 const json = await response.json();
                 setGrades(json);
@@ -33,15 +32,13 @@ const AssignmentGrade = (props) => {
         fetchGrades();
     }, [assignmentId]);
 
-    const onChange = (e, index) => {
-        const newGrades = [...grades];
-        newGrades[index].score = e.target.value;
-        setGrades(newGrades);
+    const updateGrade = (gradeId, score) => {
+        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score } : g));
     };
 
     const saveGrades = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/assignment/${assignmentId}/grades`, {
+            const response = await fetch(`${SERVER_URL}/assignment/${id}/grades`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,9 +56,14 @@ const AssignmentGrade = (props) => {
         }
     };
 
+    const onChange = (event, gradeId) => {
+        const score = event.target.value;
+        updateGrade(gradeId, score);
+    };
+
     return (
         <>
-            <h3>Assignment Grades</h3>
+            <h3>Grade Assignment</h3>
             <h4>{message}</h4>
             <table className="Center">
                 <thead>
@@ -73,24 +75,19 @@ const AssignmentGrade = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {grades.map((g, index) => (
+                    {grades.map((g) => (
                         <tr key={g.gradeId}>
                             <td>{g.gradeId}</td>
                             <td>{g.studentName}</td>
                             <td>{g.studentEmail}</td>
                             <td>
-                                <input
-                                    type="text"
-                                    name="score"
-                                    value={g.score}
-                                    onChange={(e) => onChange(e, index)}
-                                />
+                                <input type="text" name="score" value={g.score} onChange={(e) => onChange(e, g.gradeId)} />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <Button onClick={saveGrades}>Save Grades</Button>
+            <button onClick={saveGrades}>Save Grades</button>
         </>
     );
 }
