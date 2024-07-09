@@ -90,7 +90,7 @@ const ScheduleView = (props) => {
                 <tr>
                     <th>CourseId</th>
                     <th>Title</th>
-                    <th>SectionNo</th>
+                    <th>SectionId</th>
                     <th>Building</th>
                     <th>Room</th>
                     <th>Times</th>
@@ -103,7 +103,7 @@ const ScheduleView = (props) => {
                     <tr key={s.enrollmentId}>
                         <td>{s.courseId}</td>
                         <td>{s.title}</td>
-                        <td>{s.sectionNo}</td>
+                        <td>{s.sectionId}</td>
                         <td>{s.building}</td>
                         <td>{s.room}</td>
                         <td>{s.times}</td>
