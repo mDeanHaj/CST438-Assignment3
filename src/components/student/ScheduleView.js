@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from '../../Constants';
 
 // student can view schedule of sections 
-// use the URL /enrollment?studentId=3&year= &semester=
+// use the URL /enrollment?studentId=3&year=&semester=
 // The REST api returns a list of EnrollmentDTO objects
 // studentId=3 will be removed in assignment 7
 
@@ -13,9 +13,11 @@ const ScheduleView = (props) => {
     const [schedule, setSchedule] = useState([]);
     const [message, setMessage] = useState('');
 
+    const { year, semester } = props;
+
     const fetchSchedule = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/enrollment?studentId=${3}&year=${semester}&semester=${semester}`);
+            const response = await fetch(`${SERVER_URL}/enrollment?studentId=${3}&year=${year}&semester=${semester}`);
             if (response.ok) {
                 const json = await response.json();
                 setSchedule(json);
@@ -30,7 +32,7 @@ const ScheduleView = (props) => {
 
     useEffect(() => {
         fetchSchedule();
-    }, []);
+    }, [year, semester]);
 
     const dropCourse = async (enrollmentId) => {
         try {
