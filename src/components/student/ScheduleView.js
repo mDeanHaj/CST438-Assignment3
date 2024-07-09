@@ -15,7 +15,7 @@ const ScheduleView = (props) => {
 
     const fetchSchedule = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/enrollment?studentId=3&year=&semester=`);
+            const response = await fetch(`${SERVER_URL}/enrollment?studentId=${3}&year=${semester}&semester=${semester}`);
             if (response.ok) {
                 const json = await response.json();
                 setSchedule(json);

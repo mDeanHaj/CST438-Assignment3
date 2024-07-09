@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from '../../Constants';
 
 // students gets a list of all courses taken and grades
-// use the URL /transcript?studentId=
+// use the URL /transcripts?studentId=
 // the REST api returns a list of EnrollmentDTO objects 
 // the table should have columns for 
 //  Year, Semester, CourseId, SectionId, Title, Credits, Grade
@@ -13,7 +13,7 @@ const Transcript = (props) => {
 
     const fetchTranscript = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/transcript?studentId=3`);
+            const response = await fetch(`${SERVER_URL}/transcripts?studentId=${3}`);
             if (response.ok) {
                 const json = await response.json();
                 setTranscript(json);
