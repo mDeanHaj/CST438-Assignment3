@@ -13,7 +13,7 @@ const ScheduleView = (props) => {
     const [schedule, setSchedule] = useState([]);
     const [message, setMessage] = useState('');
 
-    const { year, semester } = props;
+    const { studentId, year, semester } = props;
 
     const fetchSchedule = async () => {
         try {
@@ -32,7 +32,7 @@ const ScheduleView = (props) => {
 
     useEffect(() => {
         fetchSchedule();
-    }, [year, semester]);
+    }, [studentId, year, semester]);
 
     const dropCourse = async (enrollmentId) => {
         try {

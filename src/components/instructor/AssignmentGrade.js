@@ -11,7 +11,7 @@ import { SERVER_URL } from '../../Constants';
 const AssignmentGrade = (props) => {
     const [grades, setGrades] = useState([]);
     const [message, setMessage] = useState('');
-    const [assignmentId, setAssignmentId] = useState(props.assignmentId);
+    const { id } = props;
 
     const fetchGrades = async () => {
         try {
@@ -30,10 +30,10 @@ const AssignmentGrade = (props) => {
 
     useEffect(() => {
         fetchGrades();
-    }, [assignmentId]);
+    }, [id]);
 
     const updateGrade = (gradeId, score) => {
-        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score } : g));
+        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score: score !== '' ? parseInt(score) : null } : g));
     };
 
     const saveGrades = async () => {
@@ -81,7 +81,7 @@ const AssignmentGrade = (props) => {
                             <td>{g.studentName}</td>
                             <td>{g.studentEmail}</td>
                             <td>
-                                <input type="text" name="score" value={g.score} onChange={(e) => onChange(e, g.gradeId)} />
+                                <input type="text" name="score" value={g.score !== null ? g.score : ''} onChange={(e) => onChange(e, g.gradeId)} />
                             </td>
                         </tr>
                     ))}
