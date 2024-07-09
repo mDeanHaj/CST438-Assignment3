@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from '../../Constants';
-import {useLocation} from "react-router-dom";
 
 // student can view schedule of sections 
 // use the URL /enrollment?studentId=3&year=&semester=
@@ -89,11 +88,12 @@ const ScheduleView = (props) => {
             <table className="Center">
                 <thead>
                 <tr>
-                    <th>Year</th>
-                    <th>Semester</th>
                     <th>CourseId</th>
-                    <th>SectionId</th>
                     <th>Title</th>
+                    <th>SectionNo</th>
+                    <th>Building</th>
+                    <th>Room</th>
+                    <th>Times</th>
                     <th>Credits</th>
                     <th>Action</th>
                 </tr>
@@ -101,11 +101,12 @@ const ScheduleView = (props) => {
                 <tbody>
                 {schedules.map((s) => (
                     <tr key={s.enrollmentId}>
-                        <td>{s.year}</td>
-                        <td>{s.semester}</td>
                         <td>{s.courseId}</td>
-                        <td>{s.secId}</td>
                         <td>{s.title}</td>
+                        <td>{s.sectionNo}</td>
+                        <td>{s.building}</td>
+                        <td>{s.room}</td>
+                        <td>{s.times}</td>
                         <td>{s.credits}</td>
                         <td>
                             <button onClick={() => dropCourse(s.enrollmentId)}>Drop</button>
