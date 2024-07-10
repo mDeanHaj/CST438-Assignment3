@@ -15,7 +15,7 @@ const EnrollmentUpdate = (props) => {
     const editOpen = () => {
         setOpen(true);
         setMessage('');
-        setEnrollment(props.enrollment)
+        setEnrollment(props.enrollment);
     }
 
     const editClose = () => {
@@ -40,7 +40,7 @@ const EnrollmentUpdate = (props) => {
         <>
             <Button onClick={editOpen}>Edit</Button>
             <Dialog open={isOpen}>
-            <DialogTitle>Edit Grade</DialogTitle>
+                <DialogTitle>Edit Grade</DialogTitle>
                 <DialogContent style={{paddingTop: 20}}>
                     <h4>{message}</h4>
                     <TextField style={{padding:10}} fullWidth label="enrollmentId" name="enrollmentId" value={enrollment.enrollmentId} InputProps={{readOnly: true, }} />

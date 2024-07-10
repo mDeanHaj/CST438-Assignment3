@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {useLocation} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import {SERVER_URL} from "../../Constants";
 import {confirmAlert} from "react-confirm-alert";
 import Button from "@mui/material/Button";
 import AssignmentUpdate from "./AssignmentUpdate";
 import AssignmentAdd from "./AssignmentAdd";
+import AssignmentGrade from "./AssignmentGrade";
 
 // instructor views assignments for their section
 // use location to get the section value 
@@ -18,7 +19,7 @@ const AssignmentsView = (props) => {
 
     const location = useLocation();
     const {secNo} = location.state;
-    const headers = ['AssignmentId', 'Title', 'Due Date', 'SectionNo', 'SectionId', 'CourseId', '', ''];
+    const headers = ['AssignmentId', 'Title', 'Due Date', '', '', ''];
     const [assignments, setAssignments] = useState([     ]);
     const [message, setMessage] = useState('');
     const [assignment, setAssignment] = useState({title:'', dueDate:''});
@@ -101,9 +102,7 @@ const AssignmentsView = (props) => {
                     <td>{a.id}</td>
                     <td>{a.title}</td>
                     <td>{a.dueDate}</td>
-                    <td>{a.secNo}</td>
-                    <td>{a.secId}</td>
-                    <td>{a.courseId}</td>
+                    <td> <AssignmentGrade id={a.id} onClose={fetchAssignments} /> </td>
                     <td><AssignmentUpdate assignment={a} onClose={fetchAssignments}/></td>
                     <td><Button onClick={onDelete}>Delete</Button></td>
                 </tr>
