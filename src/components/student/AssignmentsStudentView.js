@@ -42,47 +42,47 @@ const AssignmentsStudentView = (props) => {
     }
 
 
-    return(
-        <div>
-            <h3>Assignments</h3>
-
-            <h4>{message}</h4>
-            <h4>Enter year and semester.  Example 2024 Spring</h4>
-            <table className="Center">
-                <tbody>
-                <tr>
-                    <td>Year:</td>
-                    <td><input type="text" id="syear" name="year" value={search.year} onChange={editChange} /></td>
-                </tr>
-                <tr>
-                    <td>Semester:</td>
-                    <td><input type="text" id="ssemester" name="semester" value={search.semester} onChange={editChange} /></td>
-                </tr>
-                </tbody>
-            </table>
-            <br/>
-            <button type="submit" id="search" onClick={fetchAssignments} >Search for Assignments</button>
-            <br/>
-            <br/>
-            <table className="Center" >
-                <thead>
-                <tr>
-                    {headers.map((a, idx) => (<th key={idx}>{a}</th>))}
-                </tr>
-                </thead>
-                <tbody>
-                {assignments.map((a) => (
-                    <tr key={a.title}>
-                        <td>{a.courseId}</td>
-                        <td>{a.title}</td>
-                        <td>{a.dueDate}</td>
-                        <td>{a.score}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-        </div>
-    );
+    // return(
+    //     <div>
+    //         <h3>Assignments</h3>
+    //
+    //         <h4>{message}</h4>
+    //         <h4>Enter year and semester.  Example 2024 Spring</h4>
+    //         <table className="Center">
+    //             <tbody>
+    //             <tr>
+    //                 <td>Year:</td>
+    //                 <td><input type="text" id="syear" name="year" value={search.year} onChange={editChange} /></td>
+    //             </tr>
+    //             <tr>
+    //                 <td>Semester:</td>
+    //                 <td><input type="text" id="ssemester" name="semester" value={search.semester} onChange={editChange} /></td>
+    //             </tr>
+    //             </tbody>
+    //         </table>
+    //         <br/>
+    //         <button type="submit" id="search" onClick={fetchAssignments} >Search for Assignments</button>
+    //         <br/>
+    //         <br/>
+    //         <table className="Center" >
+    //             <thead>
+    //             <tr>
+    //                 {headers.map((a, idx) => (<th key={idx}>{a}</th>))}
+    //             </tr>
+    //             </thead>
+    //             <tbody>
+    //             {assignments.map((a) => (
+    //                 <tr key={a.title}>
+    //                     <td>{a.courseId}</td>
+    //                     <td>{a.title}</td>
+    //                     <td>{a.dueDate}</td>
+    //                     <td>{a.score}</td>
+    //                 </tr>
+    //             ))}
+    //             </tbody>
+    //         </table>
+    //     </div>
+    // );
 }
 
 export default AssignmentsStudentView;
