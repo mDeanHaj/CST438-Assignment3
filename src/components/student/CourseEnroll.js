@@ -41,7 +41,7 @@ const CourseEnroll = (props) => {
     const onEnroll = (e) => {
         // Row index uses the parent node (<td>) to access <td>'s parent node's (<tr) row index. The header row is considered index 0 and so we subtract 1.
         const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
-        const sectionNo = sections[row_idx].secNo;
+        const sectionNo = parseInt(sections[row_idx].secNo);
         confirmAlert({
             title: 'Confirm to enroll',
             message: 'Do you really want to enroll?',
@@ -59,7 +59,7 @@ const CourseEnroll = (props) => {
 
     const addEnroll = async (sectionNo) => {
         try {
-            const response = await fetch (`${SERVER_URL}/enrollments/sections/{sectionNo}?studentId=3`,
+            const response = await fetch (`${SERVER_URL}/enrollments/sections/${sectionNo}?studentId=3`,
                 {
                     method: 'POST',
                     headers: {
@@ -69,7 +69,7 @@ const CourseEnroll = (props) => {
                 });
             if (response.ok) {
                 const rc = await response.json();
-                setMessage("enrollment added secno="+rc.secNo);
+                setMessage("enrollment added secno="+ sectionNo);
             } else {
                 const rc = await response.json();
                 setMessage(rc.message);
