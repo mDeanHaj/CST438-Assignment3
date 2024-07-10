@@ -7,6 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 
+
 // instructor enters students' grades for an assignment
 // fetch the grades using the URL /assignment/{id}/grades
 // REST api returns a list of GradeDTO objects
@@ -24,6 +25,7 @@ const AssignmentGrade = (props) => {
     const fetchGrades = async () => {
         try {
             const response = await fetch(`${SERVER_URL}/assignments/${props.assignment.id}/grades`);
+
             if (response.ok) {
                 const json = await response.json();
                 setGrades(json);
@@ -47,11 +49,14 @@ const AssignmentGrade = (props) => {
     const saveGrades = async (grade) => {
         try {
             const response = await fetch(`${SERVER_URL}/grades`, {
+
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
                 body: JSON.stringify([grade]),
+
             });
             if (response.ok) {
                 setMessage("Grades saved successfully");
@@ -105,6 +110,7 @@ const AssignmentGrade = (props) => {
         updateGrade(grade.gradeId, score);
         // setGrade({...grade,  [event.target.name]:event.target.value})
         setGrade(grade);
+
     };
 
     return (
@@ -143,6 +149,7 @@ const AssignmentGrade = (props) => {
                     <Button color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
+
         </>
     );
 }
