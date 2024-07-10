@@ -15,7 +15,7 @@ const AssignmentUpdate = (props)  => {
 
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
-    const [assignment, setAssignment] = useState({title:'', dueDate:'', courseId:'', secId:'', secNo:''});
+    const [assignment, setAssignment] = useState({title:'', dueDate:''});
 
     const saveAssignment = async (assignment) => {
         try {
@@ -44,7 +44,7 @@ const AssignmentUpdate = (props)  => {
 
     const editOpen = () => {
         setMessage('');
-        setAssignment({title:'', dueDate:'', courseId:'', secId:'', secNo:''});
+        setAssignment({title:'', dueDate:''});
         setOpen(true);
         setAssignment(props.assignment);
     };
