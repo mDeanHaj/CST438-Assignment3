@@ -41,7 +41,7 @@ const AssignmentGrade = (props) => {
     }, []);
 
     const updateGrade = (gradeId, score) => {
-        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score: score !== '' ? parseInt(score) : null } : g));
+        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score: score !== '' ? score : null } : g));
     };
 
     const saveGrades = async (grade) => {
@@ -102,8 +102,9 @@ const AssignmentGrade = (props) => {
 
     const onChange = (event, grade) => {
         const score = event.target.value;
-        setGrade(grade);
         updateGrade(grade.gradeId, score);
+        // setGrade({...grade,  [event.target.name]:event.target.value})
+        setGrade(grade);
     };
 
     return (
