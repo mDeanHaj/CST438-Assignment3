@@ -37,6 +37,10 @@ const AssignmentsStudentView = (props) => {
         }
     }
 
+    const editChange = (event) => {
+        setSearch({...search,  [event.target.name]:event.target.value});
+    }
+
 
     return(
         <div>
