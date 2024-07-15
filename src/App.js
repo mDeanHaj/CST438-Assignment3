@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UsersView from './components/admin/UsersView';
 import CoursesView from './components/admin/CoursesView';
 import SectionsView from './components/admin/SectionsView';
+import CourseEnroll from './components/student/CourseEnroll';
 import {AdminHome, AdminLayout} from './components/admin/AdminLayout';
 import {StudentLayout, StudentHome} from './components/student/StudentLayout';
 import ScheduleView from './components/student/ScheduleView';
@@ -14,7 +15,8 @@ import InstructorHome from './components/instructor/InstructorHome';
 import AssignmentsView from './components/instructor/AssignmentsView';
 import EnrollmentsView from './components/instructor/EnrollmentsView';
 import InstructorSectionsView from './components/instructor/InstructorSectionsView';
-import CourseEnroll from "./components/student/CourseEnroll";
+
+
 
 
 function App() {
@@ -22,7 +24,8 @@ function App() {
   // change to INSTRUCTOR or STUDENT for testing.  
   // when login is implemented, the user type will come from the logged in user's ROLE.
 
-  const userType = 'INSTRUCTOR'; // change to INSTRUCTOR or STUDENT for testing.
+
+  const userType = 'STUDENT'; // change to INSTRUCTOR or STUDENT for testing.
 
   if (userType==='ADMIN') {
     return (
