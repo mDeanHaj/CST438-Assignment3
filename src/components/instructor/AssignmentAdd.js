@@ -16,39 +16,18 @@ const AssignmentAdd = (props)  => {
 
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
-    const [assignment, setAssignment] = useState({title:'', dueDate:'', courseId:'', secId:'', secNo:''});
-
-    const addAssignment = async (assignment) => {
-        try {
-            const response = await fetch (`${SERVER_URL}/assignments`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(assignment),
-                });
-            if (response.ok) {
-                const rc = await response.json();
-                setAssignment(assignment);
-            } else {
-                const rc = await response.json();
-                setMessage(rc.message);
-            }
-        } catch (err) {
-            setMessage("network error: "+err);
-        }
-    }
+    const [assignment, setAssignment] = useState({title:'', dueDate:''});
 
     const editOpen = () => {
-        setAssignment({title:'', dueDate:'', courseId:'', secId:'', secNo:''});
-        setMessage('');
         setOpen(true);
+        setAssignment({title:'', dueDate:''});
+        setMessage('');
     };
 
     const editClose = () => {
         setOpen(false);
-        props.onClose();
+        setAssignment({ title:'', dueDate:''});
+        setMessage('');
     };
 
     const editChange = (event) => {
@@ -56,15 +35,8 @@ const AssignmentAdd = (props)  => {
     }
 
     const onSave = () => {
-        if (assignment.title==='') {
-            setMessage("ERROR: Title can not be blank");
-        } else if (assignment.dueDate==='') {
-            setMessage("ERROR: Due date cannot be blank.");
-        } else if (assignment.courseId==='') {
-            setMessage("ERROR: Course ID cannot be blank.");
-        } else {
-            addAssignment(assignment);
-        }
+        props.save(assignment);
+        editClose();
     }
 
     return (
@@ -74,11 +46,8 @@ const AssignmentAdd = (props)  => {
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent  style={{paddingTop: 20}} >
                     <h4>{message}</h4>
-                    <TextField style={{padding:10}} fullWidth label="title" name="title" value={assignment.title} onChange={editChange}  />
-                    <TextField style={{padding:10}} autoFocus fullWidth label="dueDate" name="dueDate" value={assignment.dueDate} onChange={editChange}  />
-                    <TextField style={{padding:10}} autoFocus fullWidth label="courseId" name="courseId" value={assignment.courseId} onChange={editChange}  />
-                    <TextField style={{padding:10}} autoFocus fullWidth label="secId" name="secId" value={assignment.secId} onChange={editChange}  />
-                    <TextField style={{padding:10}} autoFocus fullWidth label="secNo" name="secNo" value={assignment.secNo} onChange={editChange}  />
+                    <TextField style={{padding:10}} autoFocus fullWidth label="title" name="title" value={assignment.title} onChange={editChange}  />
+                    <TextField style={{padding:10}} fullWidth label="dueDate" name="dueDate" value={assignment.dueDate} onChange={editChange}  />
                 </DialogContent>
                 <DialogActions>
                     <Button color="secondary" onClick={editClose}>Close</Button>

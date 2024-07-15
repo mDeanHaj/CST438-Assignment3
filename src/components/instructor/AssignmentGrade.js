@@ -18,8 +18,6 @@ const AssignmentGrade = (props) => {
     const [open, setOpen] = useState(false);
     const [grades, setGrades] = useState([]);
     const [message, setMessage] = useState('');
-    const [assignment, setAssignment] = useState({title:'', dueDate:''});
-    const [grade, setGrade] = useState({score:''});
 
     const fetchGrades = async () => {
         try {
@@ -36,22 +34,14 @@ const AssignmentGrade = (props) => {
         }
     };
 
-    useEffect(() => {
-        fetchGrades();
-    }, []);
-
-    const updateGrade = (gradeId, score) => {
-        setGrades(grades.map(g => g.gradeId === gradeId ? { ...g, score: score !== '' ? score : null } : g));
-    };
-
-    const saveGrades = async (grade) => {
+    const saveGrades = async (grades) => {
         try {
             const response = await fetch(`${SERVER_URL}/grades`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify([grade]),
+                body: JSON.stringify(grades),
             });
             if (response.ok) {
                 setMessage("Grades saved successfully");
@@ -64,47 +54,27 @@ const AssignmentGrade = (props) => {
         }
     };
 
-    const saveAssignment = async (assignment) => {
-        try {
-            const response = await fetch (`${SERVER_URL}/assignments`,
-                {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(assignment),
-                });
-            if (response.ok) {
-                setMessage("assignment saved")
-            } else {
-                const json = await response.json();
-                setMessage("response error: "+json.message);
-            }
-        } catch (err) {
-            setMessage("network error: "+err);
-        }
-    }
-
     const onSave = () => {
-        saveGrades(grade);
+        saveGrades(grades);
     }
 
     const editOpen = () => {
         setMessage('');
-        setGrade({score:''});
         setOpen(true);
+        fetchGrades();
     };
 
     const editClose = () => {
+        setMessage('')
         setOpen(false);
-        props.onClose();
+        setGrades([]);
     };
 
-    const onChange = (event, grade) => {
-        const score = event.target.value;
-        updateGrade(grade.gradeId, score);
-        // setGrade({...grade,  [event.target.name]:event.target.value})
-        setGrade(grade);
+    const onChange = (e) => {
+        const copy_grades = grades.map((x) => x);
+        const row_idx = e.target.parentNode.parentNode.rowIndex - 1;
+        copy_grades[row_idx] = {...(copy_grades[row_idx]), score: e.target.value};
+        setGrades(copy_grades);
     };
 
     return (
@@ -131,7 +101,7 @@ const AssignmentGrade = (props) => {
                                 <td>{g.studentEmail}</td>
                                 <td>
                                     <input type="text" name="score" value={g.score !== null ? g.score : ''}
-                                           onChange={(e) => onChange(e, g)}/>
+                                           onChange={onChange}/>
                                 </td>
                             </tr>
                         ))}

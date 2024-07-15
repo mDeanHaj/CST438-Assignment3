@@ -18,12 +18,12 @@ import AssignmentGrade from "./AssignmentGrade";
 const AssignmentsView = (props) => {
 
     const location = useLocation();
-    const {secNo} = location.state;
+    const {secNo, courseId, secId} = location.state;
     const headers = ['AssignmentId', 'Title', 'Due Date', '', '', ''];
     const [assignments, setAssignments] = useState([     ]);
     const [message, setMessage] = useState('');
     const [assignment, setAssignment] = useState({title:'', dueDate:''});
-    const [ editRow, setEditRow ] = useState(-1); //-1 means that no row is being edited. Otherwise it is the row index of the row being edited.
+    const [editRow, setEditRow ] = useState(-1); //-1 means that no row is being edited. Otherwise it is the row index of the row being edited.
 
     const  fetchAssignments = async () => {
         try {
@@ -43,6 +43,32 @@ const AssignmentsView = (props) => {
     useEffect( () => {
         fetchAssignments();
     },  []);
+
+
+    const addAssignment = async (assignment) => {
+        assignment.courseId = courseId;
+        assignment.secId = secId;
+        assignment.secNo = secNo;
+        try {
+            const response = await fetch (`${SERVER_URL}/assignments`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(assignment),
+                });
+            if (response.ok) {
+                const rc = await response.json();
+                setAssignment(assignment);
+            } else {
+                const rc = await response.json();
+                setMessage(rc.message);
+            }
+        } catch (err) {
+            setMessage("network error: "+err);
+        }
+    }
 
     const deleteAssignment = async (id) => {
         try {
@@ -68,13 +94,6 @@ const AssignmentsView = (props) => {
 
     const editChange = (event) => {
         setAssignment({...assignment,  [event.target.name]:event.target.value});
-    }
-
-    const onEdit = (event) => {
-        const row_idx = event.target.parentNode.parentNode.rowIndex - 1;
-        const a = assignments[row_idx];
-        setAssignment({...a});
-        setEditRow(row_idx);
     }
 
     const onDelete = (e) => {
@@ -138,7 +157,7 @@ const AssignmentsView = (props) => {
                 ))}
                 </tbody>
             </table>
-            <AssignmentAdd  onClose={fetchAssignments} />
+            <AssignmentAdd save={addAssignment}/>
         </>
     );
 }
