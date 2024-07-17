@@ -38,7 +38,7 @@ const EnrollmentUpdate = (props) => {
 
     return (
         <>
-            <Button onClick={editOpen}>Edit</Button>
+            <Button id="editEnrollment" onClick={editOpen}>Edit</Button>
             <Dialog open={isOpen}>
                 <DialogTitle>Edit Grade</DialogTitle>
                 <DialogContent style={{paddingTop: 20}}>
@@ -50,8 +50,8 @@ const EnrollmentUpdate = (props) => {
                     <TextField style={{padding:10}} autoFocus fullWidth label="grade" name="grade" value={enrollment.grade} onChange={editChange} />
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>Close</Button>
-                    <Button color="primary" onClick={onSave}>Save</Button>
+                    <Button id="close" color="secondary" onClick={editClose}>Close</Button>
+                    <Button id="save" color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
         </>
