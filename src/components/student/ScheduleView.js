@@ -66,7 +66,7 @@ const ScheduleView = (props) => {
     return (
         <>
             <h3>Your Schedule</h3>
-            <h4>{message}</h4>
+            <h4 id="message" >{message}</h4>
             <h4>Enter term year and semester. Example 2024 Spring.</h4>
             <table className="Center">
                 <tbody>
@@ -101,7 +101,7 @@ const ScheduleView = (props) => {
                 <tbody>
                 {schedules.map((s) => (
                     <tr key={s.enrollmentId}>
-                        <td>{s.courseId}</td>
+                        <td id="courseId" >{s.courseId}</td>
                         <td>{s.title}</td>
                         <td>{s.sectionId}</td>
                         <td>{s.building}</td>
@@ -109,7 +109,7 @@ const ScheduleView = (props) => {
                         <td>{s.times}</td>
                         <td>{s.credits}</td>
                         <td>
-                            <button onClick={() => dropCourse(s.enrollmentId)}>Drop</button>
+                            <button id="unenroll" onClick={() => dropCourse(s.enrollmentId)}>Drop</button>
                         </td>
                     </tr>
                 ))}
