@@ -79,7 +79,7 @@ const AssignmentGrade = (props) => {
 
     return (
         <>
-            <Button onClick={editOpen}>Grade</Button>
+            <Button id="viewGrade" onClick={editOpen}>Grade</Button>
             <Dialog open={open} >
                 <DialogTitle>Grade Assignment</DialogTitle>
                 <DialogContent style={{paddingTop: 20}}>
