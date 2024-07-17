@@ -144,7 +144,7 @@ const AssignmentsView = (props) => {
     return(
         <>
             <h3>Assignments</h3>
-            <h4>{message}</h4>
+            <h4 id="assignmentMessage">{message}</h4>
             <table className="Center">
                 <thead>
                 <tr>
@@ -157,7 +157,7 @@ const AssignmentsView = (props) => {
                 ))}
                 </tbody>
             </table>
-            <AssignmentAdd save={addAssignment}/>
+            <AssignmentAdd onClose={fetchAssignments} save={addAssignment}/>
         </>
     );
 }

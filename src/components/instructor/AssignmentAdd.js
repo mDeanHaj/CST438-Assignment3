@@ -28,6 +28,7 @@ const AssignmentAdd = (props)  => {
         setOpen(false);
         setAssignment({ title:'', dueDate:''});
         setMessage('');
+        props.onClose();
     };
 
     const editChange = (event) => {
@@ -36,22 +37,23 @@ const AssignmentAdd = (props)  => {
 
     const onSave = () => {
         props.save(assignment);
-        editClose();
+        setMessage("Assignment added");
+        // editClose();
     }
 
     return (
         <>
-            <Button onClick={editOpen}>Add Assignment</Button>
+            <Button id="addAssignment" onClick={editOpen}>Add Assignment</Button>
             <Dialog open={open} >
                 <DialogTitle>Add Assignment</DialogTitle>
                 <DialogContent  style={{paddingTop: 20}} >
-                    <h4>{message}</h4>
-                    <TextField style={{padding:10}} autoFocus fullWidth label="title" name="title" value={assignment.title} onChange={editChange}  />
-                    <TextField style={{padding:10}} fullWidth label="dueDate" name="dueDate" value={assignment.dueDate} onChange={editChange}  />
+                    <h4 id="addAssignmentMessage">{message}</h4>
+                    <TextField style={{padding:10}} autoFocus fullWidth id="aTitle" label="title" name="title" value={assignment.title} onChange={editChange}  />
+                    <TextField style={{padding:10}} fullWidth id="aDueDate" label="dueDate" name="dueDate" value={assignment.dueDate} onChange={editChange}  />
                 </DialogContent>
                 <DialogActions>
-                    <Button color="secondary" onClick={editClose}>Close</Button>
-                    <Button color="primary" onClick={onSave}>Save</Button>
+                    <Button id="closeDialog" color="secondary" onClick={editClose}>Close</Button>
+                    <Button id="saveAssignment" color="primary" onClick={onSave}>Save</Button>
                 </DialogActions>
             </Dialog>
         </>                       
