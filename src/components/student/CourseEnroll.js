@@ -84,7 +84,7 @@ const CourseEnroll = (props) => {
         <div>
             <h3>Sections</h3>
 
-            <h4>{message}</h4>
+            <h4 id="message" >{message}</h4>
             <h4>Enroll in an open section</h4>
             <table className="Center" >
                 <thead>
