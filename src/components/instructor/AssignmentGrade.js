@@ -83,7 +83,7 @@ const AssignmentGrade = (props) => {
             <Dialog open={open} >
                 <DialogTitle>Grade Assignment</DialogTitle>
                 <DialogContent style={{paddingTop: 20}}>
-                    <h4>{message}</h4>
+                    <h4 id="message">{message}</h4>
                     <table className="Center">
                         <thead>
                         <tr>
