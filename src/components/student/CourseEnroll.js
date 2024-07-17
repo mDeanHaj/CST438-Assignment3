@@ -103,7 +103,7 @@ const CourseEnroll = (props) => {
                         <td>{s.building}</td>
                         <td>{s.room}</td>
                         <td>{s.times}</td>
-                        <td><Button onClick={onEnroll}>Enroll</Button></td>
+                        <td><Button id="sectionSelect" onClick={onEnroll}>Enroll</Button></td>
                     </tr>
                 ))}
                 </tbody>
