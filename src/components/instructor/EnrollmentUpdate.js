@@ -47,7 +47,7 @@ const EnrollmentUpdate = (props) => {
                     <TextField style={{padding:10}} fullWidth label="studentId" name="studentId" value={enrollment.studentId} InputProps={{readOnly: true, }} />
                     <TextField style={{padding:10}} fullWidth label="name" name="name" value={enrollment.name} InputProps={{readOnly: true, }} />
                     <TextField style={{padding:10}} fullWidth label="email" name="email" value={enrollment.email} InputProps={{readOnly: true, }} />
-                    <TextField style={{padding:10}} autoFocus fullWidth label="grade" name="grade" value={enrollment.grade} onChange={editChange} />
+                    <TextField style={{padding:10}} autoFocus fullWidth label="grade" name="grade" id="editGrade" value={enrollment.grade} onChange={editChange} />
                 </DialogContent>
                 <DialogActions>
                     <Button id="close" color="secondary" onClick={editClose}>Close</Button>
