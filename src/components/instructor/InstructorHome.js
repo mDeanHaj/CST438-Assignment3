@@ -23,9 +23,7 @@ const InstructorHome = () => {
             </tr>
             </tbody>
             </table>
-            <div>
-                <Link id="searchSections" to='/sections' state={term}>Show Sections</Link>
-            </div>
+            <Link to='/sections' state={term}>Show Sections</Link>
         </>
     )
 };
