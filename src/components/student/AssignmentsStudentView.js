@@ -17,13 +17,17 @@ const AssignmentsStudentView = (props) => {
     const headers = ['CousreId', 'Assignment Title', 'Assignment DueDate',  'Score'];
     const [message, setMessage] = useState('');
     const [search, setSearch] = useState({year:'', semester:''});
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchAssignments = async () => {
         if (search.year==='' || search.semester==='' ) {
             setMessage("Enter search parameters");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`);
+                const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`,
+                    {headers: {
+                            'Authorization': jwt,
+                        }});
                 if (response.ok) {
                     const data = await response.json();
                     setAssignments(data);

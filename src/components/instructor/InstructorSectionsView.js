@@ -18,10 +18,17 @@ const InstructorSectionsView = (props) => {
     const headers = ['SecNo', 'CourseId', 'SecId',  'Year', 'Semester', 'Building', 'Room', 'Times', ' ', ' '];
     const [sections, setSections] = useState([]);
     const [message, setMessage] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
     const  fetchInstructorSections = async () => {
+        if (!year || year==='' || !semester || semester==='') {
+            setMessage("enter year and semester")
+        }
         try {
-            const response = await fetch(`${SERVER_URL}/sections?email=${'dwisneski@csumb.edu'}&year=${year}&semester=${semester}`);
+            const response = await fetch(`${SERVER_URL}/sections?email=${'dwisneski@csumb.edu'}&year=${year}&semester=${semester}`,
+                {headers: {
+                    'Authorization': jwt,
+                    }});
             if (response.ok) {
                 const json = await response.json();
                 setSections(json);

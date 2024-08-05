@@ -10,10 +10,15 @@ import { SERVER_URL } from '../../Constants';
 const Transcript = (props) => {
     const [transcript, setTranscript] = useState([]);
     const [message, setMessage] = useState('');
+    const jwt = sessionStorage.getItem('jwt');
 
+    // removed hardcoded studentId=3 for login security
     const fetchTranscript = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/transcripts?studentId=${3}`);
+            const response = await fetch(`${SERVER_URL}/transcripts`,
+                {headers: {
+                        'Authorization': jwt,
+                    }});
             if (response.ok) {
                 const json = await response.json();
                 setTranscript(json);

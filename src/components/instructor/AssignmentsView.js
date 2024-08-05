@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import AssignmentUpdate from "./AssignmentUpdate";
 import AssignmentAdd from "./AssignmentAdd";
 import AssignmentGrade from "./AssignmentGrade";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 // instructor views assignments for their section
 // use location to get the section value 
@@ -24,10 +25,14 @@ const AssignmentsView = (props) => {
     const [message, setMessage] = useState('');
     const [assignment, setAssignment] = useState({title:'', dueDate:''});
     const [editRow, setEditRow ] = useState(-1); //-1 means that no row is being edited. Otherwise it is the row index of the row being edited.
+    const jwt = sessionStorage.getItem('jwt');
 
     const  fetchAssignments = async () => {
         try {
-            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments`);
+            const response = await fetch(`${SERVER_URL}/sections/${secNo}/assignments`,
+                {headers: {
+                        'Authorization': jwt,
+                    }});
             if (response.ok) {
                 const assignments = await response.json();
                 setAssignments(assignments);
@@ -54,6 +59,7 @@ const AssignmentsView = (props) => {
                 {
                     method: 'POST',
                     headers: {
+                        'Authorization': jwt,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(assignment),
@@ -76,6 +82,7 @@ const AssignmentsView = (props) => {
                 {
                     method: 'DELETE',
                     headers: {
+                        'Authorization': jwt,
                         'Content-Type': 'application/json',
                     },
                 });
@@ -101,6 +108,7 @@ const AssignmentsView = (props) => {
         const id = assignments[row_idx].id;
         confirmAlert({
             title: 'Confirm to delete',
+            'Authorization': jwt,
             message: 'Do you really want to delete?',
             buttons: [
                 {
@@ -130,7 +138,7 @@ const AssignmentsView = (props) => {
             setEditRow(-1);
             return (
                 <tr key={a.id}>
-                    <td>{a.id}/></td>
+                    <td>{a.id}</td>
                     <td><input type={"text"} name={"title"} value={assignment.title} onChange={editChange}/></td>
                     <td><input type={"text"} name={"dueDate"} value={assignment.dueDate} onChange={editChange}/></td>
                     <td><AssignmentUpdate assignment={a} onClose={fetchAssignments}/></td>

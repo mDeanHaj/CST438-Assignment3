@@ -13,7 +13,7 @@ const ScheduleView = (props) => {
     const [schedules, setSchedules] = useState([]);
     const [message, setMessage] = useState('');
     const [schedule, setSchedule] = useState({year:'', semester:''});
-
+    const jwt = sessionStorage.getItem('jwt');
 
     const fetchSchedule = async () => {
         if (schedule.year==='' || schedule.semester==='') {
@@ -21,7 +21,10 @@ const ScheduleView = (props) => {
         }
         else {
             try {
-                const response = await fetch(`${SERVER_URL}/enrollments?studentId=3&year=${schedule.year}&semester=${schedule.semester}`);
+                const response = await fetch(`${SERVER_URL}/enrollments?studentId=3&year=${schedule.year}&semester=${schedule.semester}`,
+                    {headers: {
+                            'Authorization': jwt,
+                        }});
                 if (response.ok) {
                     const json = await response.json();
                     setSchedules(json);
@@ -45,12 +48,12 @@ const ScheduleView = (props) => {
 
     const dropCourse = async (enrollmentId) => {
         try {
-            const response = await fetch(`${SERVER_URL}/enrollments/${enrollmentId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const response = await fetch(`${SERVER_URL}/enrollments/${enrollmentId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': jwt,
+                    }});
             if (response.ok) {
                 setMessage("Course dropped");
                 fetchSchedule();
