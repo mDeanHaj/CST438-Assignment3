@@ -13,6 +13,8 @@ function UsersView(props) {
 
     const [message, setMessage] = useState('');
 
+    const jwt = sessionStorage.getItem('jwt');
+
     const  fetchUsers = async () => {
       try {
         const response = await fetch(`${SERVER_URL}/users`);
@@ -39,6 +41,7 @@ function UsersView(props) {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
+                'Authorization': jwt,
             }, 
             body: JSON.stringify(user),
           });
@@ -61,6 +64,7 @@ function UsersView(props) {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+                'Authorization': jwt,
             }, 
             body: JSON.stringify(user),
           });
@@ -84,6 +88,7 @@ function UsersView(props) {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
+                'Authorization': jwt,
             }, 
           });
         if (response.ok) {
