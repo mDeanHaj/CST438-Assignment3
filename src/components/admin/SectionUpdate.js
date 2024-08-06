@@ -14,6 +14,8 @@ const SectionUpdate = (props)  => {
     const [section, setSection] = useState(
         {secNo:'', courseId:'', secId:'', year:'', semester:'', building:'', room:'', times:'',
         instructorName:'', instructorEmail:''});
+    const jwt = sessionStorage.getItem('jwt');
+
 
     /*
      *  dialog for edit section
@@ -46,6 +48,7 @@ const SectionUpdate = (props)  => {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json',
+                  'Authorization': jwt,
               }, 
               body: JSON.stringify(section),
             });
