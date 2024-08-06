@@ -15,6 +15,8 @@ function SectionsView(props) {
 
     const [message, setMessage] = useState('');
 
+    const jwt = sessionStorage.getItem('jwt');
+
     const fetchSections = async () => {
         if (search.courseId==='' || search.year==='' || search.semester==='' ) {
             setMessage("Enter search parameters");
@@ -41,6 +43,7 @@ function SectionsView(props) {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
+              'Authorization': jwt,
           }, 
         });
         if (response.ok) {
