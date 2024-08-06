@@ -18,6 +18,8 @@ function CoursesView(props) {
 
     const [ editCourse, setEditCourse ] = useState({courseId: '', title: '', credits: ''}) // The course being edited.
 
+    const jwt = sessionStorage.getItem('jwt');
+
     const  fetchCourses = async () => {
       try {
         const response = await fetch(`${SERVER_URL}/courses`);
@@ -44,6 +46,7 @@ function CoursesView(props) {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                  'Authorization': jwt,
               }, 
               body: JSON.stringify(course),
             });
@@ -71,6 +74,7 @@ function CoursesView(props) {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': jwt,
                     },
                     body: JSON.stringify(course),
                 });
@@ -93,6 +97,7 @@ function CoursesView(props) {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
+                  'Authorization': jwt,
               }, 
             });
         if (response.ok) {
