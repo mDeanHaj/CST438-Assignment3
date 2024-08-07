@@ -16,6 +16,7 @@ const AssignmentUpdate = (props)  => {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [assignment, setAssignment] = useState({title:'', dueDate:''});
+    const jwt = sessionStorage.getItem('jwt');
 
     const saveAssignment = async (assignment) => {
         try {
@@ -23,6 +24,7 @@ const AssignmentUpdate = (props)  => {
                 {
                     method: 'PUT',
                     headers: {
+                        'Authorization': jwt,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(assignment),
