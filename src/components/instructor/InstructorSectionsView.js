@@ -25,7 +25,7 @@ const InstructorSectionsView = (props) => {
             setMessage("enter year and semester")
         }
         try {
-            const response = await fetch(`${SERVER_URL}/sections?email=${'dwisneski@csumb.edu'}&year=${year}&semester=${semester}`,
+            const response = await fetch(`${SERVER_URL}/sections?year=${year}&semester=${semester}`,
                 {headers: {
                     'Authorization': jwt,
                     }});
