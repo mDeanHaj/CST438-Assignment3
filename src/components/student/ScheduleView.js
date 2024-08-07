@@ -21,7 +21,7 @@ const ScheduleView = (props) => {
         }
         else {
             try {
-                const response = await fetch(`${SERVER_URL}/enrollments?studentId=3&year=${schedule.year}&semester=${schedule.semester}`,
+                const response = await fetch(`${SERVER_URL}/enrollments?year=${schedule.year}&semester=${schedule.semester}`,
                     {headers: {
                             'Authorization': jwt,
                         }});
