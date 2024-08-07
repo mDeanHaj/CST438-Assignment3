@@ -159,10 +159,10 @@ function CoursesView(props) {
         } else {
             return (
                 <tr key={c.courseId}>
-                    <td>{c.courseId}/></td>
+                    <td>{c.courseId}</td>
                     <td><input type={"text"} name={"title"} value={editCourse.title} onChange={editChange}/></td>
                     <td><input type={"text"} name={"credits"} value={editCourse.credits} onChange={editChange}/></td>
-                    <td><Button onClick={doSave}/>Save</td>
+                    <td><Button onClick={doSave}>Save</Button></td>
                     <td></td>
                 </tr>
             );
