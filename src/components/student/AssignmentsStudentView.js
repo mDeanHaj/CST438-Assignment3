@@ -24,7 +24,7 @@ const AssignmentsStudentView = (props) => {
             setMessage("Enter search parameters");
         } else {
             try {
-                const response = await fetch(`${SERVER_URL}/assignments?studentId=3&year=${search.year}&semester=${search.semester}`,
+                const response = await fetch(`${SERVER_URL}/assignments?year=${search.year}&semester=${search.semester}`,
                     {headers: {
                             'Authorization': jwt,
                         }});
