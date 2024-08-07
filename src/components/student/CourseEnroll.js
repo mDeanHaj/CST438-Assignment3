@@ -63,7 +63,7 @@ const CourseEnroll = (props) => {
 
     const addEnroll = async (sectionNo) => {
         try {
-            const response = await fetch (`${SERVER_URL}/enrollments/sections/${sectionNo}?studentId=3`,
+            const response = await fetch (`${SERVER_URL}/enrollments/sections/${sectionNo}`,
                 {
                         method: 'POST',
                         headers: {
