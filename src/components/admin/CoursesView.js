@@ -152,7 +152,7 @@ function CoursesView(props) {
                     <td>{c.courseId}</td>
                     <td>{c.title}</td>
                     <td>{c.credits}</td>
-                    <td><Button onClick={onEdit}/>Edit</td>
+                    <td><Button onClick={onEdit}>Edit</Button></td>
                     <td><Button onClick={onDelete}>Delete</Button></td>
                 </tr>
             );
