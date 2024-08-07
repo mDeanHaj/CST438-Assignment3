@@ -17,7 +17,10 @@ function UsersView(props) {
 
     const  fetchUsers = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/users`);
+        const response = await fetch(`${SERVER_URL}/users`,
+            {
+                headers: {'Authorization': jwt}
+            });
         if (response.ok) {
           const users = await response.json();
           setUsers(users);
