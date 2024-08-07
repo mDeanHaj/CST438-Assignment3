@@ -22,7 +22,10 @@ function CoursesView(props) {
 
     const  fetchCourses = async () => {
       try {
-        const response = await fetch(`${SERVER_URL}/courses`);
+        const response = await fetch(`${SERVER_URL}/courses`,
+            {
+                headers: {'Authorization': jwt}
+            });
         if (response.ok) {
           const courses = await response.json();
           setCourses(courses);
